@@ -10,6 +10,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7L8FERFMRX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-7L8FERFMRX');
+    </script>
 </head>
 <body class="main-content">
     <header class="container header active" id="home">
@@ -378,5 +388,16 @@
         <i class="fas fa-adjust"></i>
     </div>
     <script src="app.js"></script>
+
+    <script src="app.js"></script> <!-- If you already have an app.js -->
+    <script>
+        // Track the "Download CV" button click
+        document.querySelector('.main-btn').addEventListener('click', () => {
+            gtag('event', 'download_cv', {
+                'event_category': 'Button',
+                'event_label': 'Download CV Button'
+            });
+        });
+    </script>
 </body>
 </html>
