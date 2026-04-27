@@ -1,624 +1,738 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Macarthur Diby | Software Engineer</title>
+  <title>Macarthur Diby — Software Engineer</title>
+  <meta name="description" content="Software Engineer and Technical Support Engineer based in Austin, TX. I build automation tools, full-stack apps, and AI-powered systems." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
   <style>
+    /* ── TOKENS ─────────────────────────────────────── */
     :root {
-      --bg: #0b1020;
-      --bg-soft: #11172a;
-      --card: rgba(255, 255, 255, 0.06);
-      --card-border: rgba(255, 255, 255, 0.12);
-      --text: #f5f7fb;
-      --muted: #a8b0c2;
-      --accent: #6ea8fe;
-      --accent-2: #7ef0c4;
-      --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
-      --maxw: 1180px;
-      --radius: 24px;
+      --bg:            #F9F8F6;
+      --bg-soft:       #F0EDE8;
+      --surface:       #FFFFFF;
+      --text:          #1C1917;
+      --muted:         #78716C;
+      --accent:        #2D6A4F;
+      --accent-bg:     rgba(45,106,79,0.08);
+      --accent-border: rgba(45,106,79,0.22);
+      --border:        #E8E5E0;
+      --shadow-sm:     0 1px 2px rgba(0,0,0,0.06);
+      --shadow-md:     0 4px 14px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.05);
+      --shadow-lg:     0 14px 36px rgba(0,0,0,0.11), 0 2px 6px rgba(0,0,0,0.06);
+      --font-serif:    'Playfair Display', Georgia, 'Times New Roman', serif;
+      --font-sans:     'DM Sans', system-ui, sans-serif;
+      --radius:        12px;
+      --radius-lg:     20px;
+      --maxw:          1140px;
+      --ease:          0.25s ease;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    [data-theme="dark"] {
+      --bg:            #111110;
+      --bg-soft:       #1A1918;
+      --surface:       #1E1D1C;
+      --text:          #F0ECE3;
+      --muted:         #A89F96;
+      --accent:        #4ADE80;
+      --accent-bg:     rgba(74,222,128,0.08);
+      --accent-border: rgba(74,222,128,0.22);
+      --border:        #2C2B28;
+      --shadow-sm:     0 1px 2px rgba(0,0,0,0.35);
+      --shadow-md:     0 4px 14px rgba(0,0,0,0.35), 0 1px 3px rgba(0,0,0,0.25);
+      --shadow-lg:     0 14px 36px rgba(0,0,0,0.45), 0 2px 6px rgba(0,0,0,0.3);
     }
 
-    html {
-      scroll-behavior: smooth;
-    }
-
+    /* ── RESET ───────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
     body {
-      font-family: "Inter", sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(110, 168, 254, 0.18), transparent 25%),
-        radial-gradient(circle at top right, rgba(126, 240, 196, 0.12), transparent 20%),
-        linear-gradient(180deg, #08101f 0%, #0d1324 100%);
+      font-family: var(--font-sans);
+      background-color: var(--bg);
       color: var(--text);
-      line-height: 1.65;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color var(--ease), color var(--ease);
     }
-
-    a {
-      color: inherit;
-      text-decoration: none;
+    /* subtle grain overlay — the "handcrafted" touch */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.028;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
     }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    ul { list-style: none; }
 
-    img {
-      max-width: 100%;
-      display: block;
-    }
-
+    /* ── LAYOUT ──────────────────────────────────────── */
     .container {
-      width: min(var(--maxw), calc(100% - 2rem));
+      width: min(var(--maxw), calc(100% - 3rem));
       margin: 0 auto;
     }
 
+    /* ── NAV ─────────────────────────────────────────── */
     .nav {
       position: sticky;
       top: 0;
       z-index: 100;
-      backdrop-filter: blur(14px);
-      background: rgba(8, 16, 31, 0.65);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      transition: background var(--ease), border-color var(--ease);
     }
-
     .nav-inner {
-      width: min(var(--maxw), calc(100% - 2rem));
+      width: min(var(--maxw), calc(100% - 3rem));
       margin: 0 auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1rem 0;
+      padding: 1.1rem 0;
     }
-
     .brand {
-      font-size: 1rem;
-      font-weight: 800;
-      letter-spacing: 0.02em;
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
     }
-
-    .brand span {
-      color: var(--accent);
+    .brand .dot { color: var(--accent); }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 0.2rem;
     }
-
     .nav-links {
       display: flex;
-      gap: 1.2rem;
       align-items: center;
-      flex-wrap: wrap;
+      gap: 0.1rem;
+      margin-right: 0.5rem;
     }
-
     .nav-links a {
       color: var(--muted);
+      font-size: 0.875rem;
       font-weight: 500;
-      transition: 0.2s ease;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      transition: color var(--ease), background var(--ease);
     }
-
-    .nav-links a:hover {
-      color: var(--text);
-    }
-
-    .btn {
+    .nav-links a:hover { color: var(--text); background: var(--bg-soft); }
+    .btn-nav {
       display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 1.1rem;
+      border-radius: 999px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      background: var(--accent);
+      color: var(--bg);
+      transition: opacity var(--ease), transform var(--ease);
+      border: none;
+    }
+    .btn-nav:hover { opacity: 0.85; transform: translateY(-1px); }
+    .theme-toggle {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      width: 36px;
+      height: 36px;
+      cursor: pointer;
+      color: var(--muted);
+      font-size: 0.95rem;
+      display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.5rem;
-      padding: 0.95rem 1.25rem;
-      border-radius: 999px;
-      font-weight: 700;
-      transition: 0.2s ease;
-      border: 1px solid transparent;
+      transition: border-color var(--ease), background var(--ease), color var(--ease);
+      margin-left: 0.4rem;
+      flex-shrink: 0;
     }
+    .theme-toggle:hover { border-color: var(--accent); color: var(--text); }
 
-    .btn-primary {
-      background: linear-gradient(135deg, var(--accent), #8ab8ff);
-      color: #08101f;
-      box-shadow: 0 10px 25px rgba(110, 168, 254, 0.28);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.03);
-    }
-
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.05);
-      border-color: rgba(255, 255, 255, 0.12);
-      color: var(--text);
-    }
-
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.09);
-    }
-
-    .hero {
-      padding: 5.5rem 0 4rem;
-    }
-
+    /* ── HERO ────────────────────────────────────────── */
+    .hero { padding: 5rem 0 4rem; }
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 2rem;
+      grid-template-columns: 1fr 320px;
+      gap: 3.5rem;
       align-items: center;
     }
-
     .eyebrow {
       display: inline-flex;
-      padding: 0.45rem 0.8rem;
-      border-radius: 999px;
-      background: rgba(110, 168, 254, 0.12);
-      color: #b7d3ff;
-      border: 1px solid rgba(110, 168, 254, 0.24);
-      font-size: 0.9rem;
-      font-weight: 600;
-      margin-bottom: 1.25rem;
-    }
-
-    .hero h1 {
-      font-size: clamp(2.7rem, 6vw, 5rem);
-      line-height: 1.02;
-      letter-spacing: -0.04em;
-      margin-bottom: 1rem;
-    }
-
-    .hero h1 .accent {
-      background: linear-gradient(135deg, #ffffff 10%, #9bc0ff 55%, #7ef0c4 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero p {
-      color: var(--muted);
-      font-size: 1.08rem;
-      max-width: 700px;
-    }
-
-    .hero-actions {
-      margin-top: 1.8rem;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.9rem;
-    }
-
-    .hero-card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
-      border: 1px solid var(--card-border);
-      border-radius: 30px;
-      box-shadow: var(--shadow);
-      padding: 1.2rem;
-      overflow: hidden;
-    }
-
-    .profile-card {
-      position: relative;
-    }
-
-    .profile-card::before {
-      content: "";
-      position: absolute;
-      inset: -20% auto auto -10%;
-      width: 200px;
-      height: 200px;
-      background: radial-gradient(circle, rgba(110,168,254,0.28), transparent 60%);
-      pointer-events: none;
-    }
-
-    .profile-img-wrap {
-      border-radius: 24px;
-      overflow: hidden;
-      margin-bottom: 1rem;
-      border: 1px solid rgba(255,255,255,0.1);
-      background: #0f1628;
-    }
-
-    .profile-meta {
-      display: grid;
-      gap: 0.8rem;
-    }
-
-    .meta-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 1rem;
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    .meta-row strong {
-      color: var(--text);
-      font-weight: 600;
-    }
-
-    section {
-      padding: 2rem 0 4.2rem;
-    }
-
-    .section-title {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .section-title h2 {
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      letter-spacing: -0.03em;
-    }
-
-    .section-title p {
-      color: var(--muted);
-      max-width: 650px;
-    }
-
-    .grid-4 {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1rem;
-    }
-
-    .stat-card,
-    .card {
-      background: var(--card);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius);
-      padding: 1.25rem;
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-    }
-
-    .stat-card h3 {
-      font-size: 2rem;
-      margin-bottom: 0.25rem;
-    }
-
-    .stat-card p {
-      color: var(--muted);
-      font-size: 0.96rem;
-    }
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 1rem;
-    }
-
-    .about-copy p {
-      color: var(--muted);
-      margin-top: 0.9rem;
-    }
-
-    .tag-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.7rem;
-      margin-top: 1.2rem;
-    }
-
-    .tag {
-      padding: 0.65rem 0.9rem;
-      border-radius: 999px;
-      font-size: 0.92rem;
-      color: #d7def0;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .skills-list {
-      display: grid;
-      gap: 0.9rem;
-    }
-
-    .skill-item h4 {
-      margin-bottom: 0.2rem;
-      font-size: 1rem;
-    }
-
-    .skill-item p {
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    .experience-grid {
-      display: grid;
-      gap: 1rem;
-    }
-
-    .exp-card h3 {
-      font-size: 1.1rem;
-      margin-bottom: 0.2rem;
-    }
-
-    .exp-card .sub {
-      color: #b7d3ff;
-      font-size: 0.95rem;
-      margin-bottom: 0.9rem;
-    }
-
-    .exp-card ul {
-      padding-left: 1.1rem;
-      color: var(--muted);
-    }
-
-    .exp-card li + li {
-      margin-top: 0.45rem;
-    }
-
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-    }
-
-    .project-card {
-      display: flex;
-      flex-direction: column;
-      min-height: 300px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .project-card::after {
-      content: "";
-      position: absolute;
-      right: -40px;
-      top: -40px;
-      width: 140px;
-      height: 140px;
-      background: radial-gradient(circle, rgba(110,168,254,0.16), transparent 60%);
-      pointer-events: none;
-    }
-
-    .project-top {
-      display: flex;
-      align-items: start;
-      justify-content: space-between;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
-
-    .project-top h3 {
-      font-size: 1.18rem;
-      line-height: 1.3;
-    }
-
-    .project-badge {
-      white-space: nowrap;
-      font-size: 0.8rem;
-      color: #d8f8eb;
-      background: rgba(126, 240, 196, 0.12);
-      border: 1px solid rgba(126, 240, 196, 0.25);
-      border-radius: 999px;
-      padding: 0.4rem 0.65rem;
-    }
-
-    .project-card p {
-      color: var(--muted);
-      margin-bottom: 1rem;
-    }
-
-    .tech-stack {
-      display: flex;
-      flex-wrap: wrap;
+      align-items: center;
       gap: 0.55rem;
-      margin-top: auto;
-      margin-bottom: 1rem;
+      font-size: 0.825rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1.4rem;
     }
-
-    .tech-stack span {
-      padding: 0.45rem 0.7rem;
-      border-radius: 999px;
-      font-size: 0.82rem;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      color: #dbe4f6;
+    .eyebrow::before {
+      content: '';
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--accent);
+      flex-shrink: 0;
     }
-
-    .project-links {
+    .hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(2.5rem, 5.5vw, 4.2rem);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.025em;
+      margin-bottom: 1.3rem;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+    .hero .lead {
+      color: var(--muted);
+      font-size: 1.025rem;
+      max-width: 540px;
+      font-weight: 300;
+      line-height: 1.75;
+    }
+    .hero-actions {
+      margin-top: 2rem;
       display: flex;
       gap: 0.75rem;
       flex-wrap: wrap;
     }
-
-    .project-links a {
-      color: #cde0ff;
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
       font-weight: 600;
+      transition: all var(--ease);
+      border: 1.5px solid transparent;
+      font-family: var(--font-sans);
     }
+    .btn-primary { background: var(--accent); color: var(--bg); }
+    .btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
+    .btn-outline { border-color: var(--border); color: var(--text); }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-bg); }
 
-    .project-links a:hover {
-      color: #fff;
+    /* Profile card */
+    .profile-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.2rem;
+      box-shadow: var(--shadow-md);
+      transition: background var(--ease), border-color var(--ease), box-shadow var(--ease);
     }
+    .profile-img-wrap {
+      border-radius: 13px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      aspect-ratio: 4/3.8;
+      background: var(--bg-soft);
+      margin-bottom: 1rem;
+    }
+    .profile-img-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+    .profile-meta { display: grid; gap: 0.55rem; }
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.845rem;
+      gap: 0.5rem;
+    }
+    .meta-row .label { color: var(--muted); white-space: nowrap; }
+    .meta-row .value { font-weight: 500; text-align: right; }
 
-    .contact-grid {
+    /* ── STATS ───────────────────────────────────────── */
+    .stats-strip {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 2.25rem 0;
+    }
+    .stats-grid {
       display: grid;
-      grid-template-columns: 1fr 0.9fr;
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .stat-item {
+      padding: 0 2rem;
+      border-right: 1px solid var(--border);
+    }
+    .stat-item:first-child { padding-left: 0; }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: var(--font-serif);
+      font-size: 2.4rem;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+    .stat-item p { color: var(--muted); font-size: 0.85rem; line-height: 1.45; }
+
+    /* ── SECTION HEADER ──────────────────────────────── */
+    section { padding: 5rem 0; }
+    .section-header { margin-bottom: 3rem; }
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 18px;
+      height: 1.5px;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+    .section-header h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.15;
+    }
+    .section-header p {
+      color: var(--muted);
+      margin-top: 0.8rem;
+      max-width: 580px;
+      font-size: 0.97rem;
+    }
+
+    /* ── CARD ────────────────────────────────────────── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      box-shadow: var(--shadow-sm);
+      transition: background var(--ease), border-color var(--ease), box-shadow var(--ease);
+    }
+
+    /* ── ABOUT ───────────────────────────────────────── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 1.25rem;
+      align-items: start;
+    }
+    .about-copy h3 {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+    .about-copy p { color: var(--muted); margin-top: 0.85rem; line-height: 1.82; font-size: 0.95rem; }
+    .tag-list { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1.25rem; }
+    .tag {
+      padding: 0.38rem 0.85rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .skills-list { display: grid; gap: 1.2rem; }
+    .skill-item h4 {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 0.3rem;
+    }
+    .skill-item p { color: var(--muted); font-size: 0.875rem; line-height: 1.55; }
+
+    /* ── EXPERIENCE ──────────────────────────────────── */
+    .bg-soft-section {
+      background: var(--bg-soft);
+      transition: background var(--ease);
+    }
+    .experience-grid { display: grid; gap: 1rem; }
+    .exp-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.6rem;
+    }
+    .exp-header h3 {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+    .exp-date {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--accent);
+      background: var(--accent-bg);
+      border: 1px solid var(--accent-border);
+      padding: 0.28rem 0.7rem;
+      border-radius: 999px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .exp-company { font-size: 0.875rem; color: var(--muted); margin-bottom: 0.9rem; }
+    .exp-card li {
+      position: relative;
+      padding-left: 1.1rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 0.4rem;
+      line-height: 1.65;
+    }
+    .exp-card li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 0.75rem;
+      top: 0.12rem;
+    }
+
+    /* ── PROJECTS ────────────────────────────────────── */
+    .sub-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    .sub-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .featured-stack { display: grid; gap: 1rem; margin-bottom: 3rem; }
+    .featured-row {
+      display: grid;
+      grid-template-columns: 1.55fr 1fr;
       gap: 1rem;
     }
 
-    .contact-copy p {
-      color: var(--muted);
-      margin-top: 0.85rem;
-      max-width: 650px;
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow var(--ease), border-color var(--ease), transform var(--ease), background var(--ease);
+      position: relative;
+      overflow: hidden;
     }
-
-    .contact-list {
+    .project-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: var(--accent-border);
+      transform: translateY(-2px);
+    }
+    .project-card.featured { padding: 2rem; }
+    .project-card.featured::before,
+    .project-card.featured-wide::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent);
+    }
+    .project-card.featured-wide { padding: 2rem; }
+    .featured-wide-inner {
       display: grid;
-      gap: 0.85rem;
-      margin-top: 1.25rem;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: start;
     }
 
-    .contact-list div {
+    .proj-meta {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+    .proj-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.28rem 0.7rem;
+      border-radius: 999px;
+      background: var(--accent-bg);
+      color: var(--accent);
+      border: 1px solid var(--accent-border);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .project-card h3 {
+      font-family: var(--font-serif);
+      font-size: 1.08rem;
+      font-weight: 500;
+      line-height: 1.3;
+    }
+    .project-card.featured h3,
+    .project-card.featured-wide h3 { font-size: 1.3rem; }
+    .project-card p {
       color: var(--muted);
-      word-break: break-word;
+      font-size: 0.875rem;
+      line-height: 1.72;
     }
-
-    .contact-list strong {
-      color: var(--text);
+    .tech-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .tech-stack span {
+      font-size: 0.76rem;
+      padding: 0.28rem 0.65rem;
+      border-radius: 999px;
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-weight: 500;
     }
+    .proj-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: auto; }
+    .proj-links a {
+      font-size: 0.855rem;
+      font-weight: 600;
+      color: var(--accent);
+      transition: opacity var(--ease);
+    }
+    .proj-links a:hover { opacity: 0.7; }
 
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+    .project-card.compact { padding: 1.35rem; gap: 0.7rem; }
+    .project-card.compact h3 { font-size: 0.975rem; }
+
+    /* ── CONTACT ─────────────────────────────────────── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 0.8fr;
+      gap: 2rem;
+      align-items: start;
+    }
+    .contact-copy h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+    .contact-copy p { color: var(--muted); max-width: 500px; font-size: 0.95rem; }
+    .contact-details { display: grid; gap: 0.6rem; margin-top: 1.5rem; }
+    .contact-details div { font-size: 0.9rem; color: var(--muted); }
+    .contact-details strong { color: var(--text); margin-right: 0.35rem; }
+    .contact-details a { transition: color var(--ease); }
+    .contact-details a:hover { color: var(--accent); }
+    .profiles-card h3 {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+    .profiles-list { display: grid; gap: 0.6rem; }
+    .profile-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.875rem;
+      padding: 0.8rem 1rem;
+      border-radius: 9px;
+      border: 1px solid var(--border);
+      transition: border-color var(--ease), background var(--ease), color var(--ease);
+    }
+    .profile-link:hover { border-color: var(--accent); background: var(--accent-bg); color: var(--accent); }
+    .profile-link .platform { font-weight: 600; }
+    .profile-link .handle { color: var(--muted); font-size: 0.82rem; }
+    .profile-link:hover .handle { color: var(--accent); opacity: 0.8; }
+
+    /* ── FOOTER ──────────────────────────────────────── */
     .footer {
-      padding: 2rem 0 3rem;
-      color: var(--muted);
-      text-align: center;
-      font-size: 0.95rem;
+      padding: 2.25rem 0;
+      border-top: 1px solid var(--border);
     }
+    .footer-inner {
+      width: min(var(--maxw), calc(100% - 3rem));
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .footer-brand { font-family: var(--font-serif); font-size: 1rem; font-weight: 700; }
+    .footer-brand .dot { color: var(--accent); }
+    .footer-copy { color: var(--muted); font-size: 0.85rem; }
 
-    @media (max-width: 980px) {
+    /* ── SCROLL REVEAL ───────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-d1 { transition-delay: 0.1s; }
+    .reveal-d2 { transition-delay: 0.2s; }
+    .reveal-d3 { transition-delay: 0.3s; }
+
+    /* ── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .featured-row { grid-template-columns: 1fr; }
+      .featured-wide-inner { grid-template-columns: 1fr; gap: 1rem; }
+      .projects-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 840px) {
       .hero-grid,
       .about-grid,
-      .contact-grid,
-      .projects-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .grid-4 {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .nav-inner {
-        flex-direction: column;
-        gap: 0.8rem;
-      }
+      .contact-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .stat-item { padding: 1rem 1.25rem; border-right: none; border-bottom: 1px solid var(--border); }
+      .stat-item:nth-child(odd) { border-right: 1px solid var(--border); }
+      .stat-item:nth-last-child(-n+2) { border-bottom: none; }
     }
-
     @media (max-width: 640px) {
-      .hero {
-        padding-top: 4rem;
-      }
-
-      .hero h1 {
-        font-size: 2.5rem;
-      }
-
-      .grid-4 {
-        grid-template-columns: 1fr;
-      }
-
-      .nav-links {
-        justify-content: center;
-      }
+      section { padding: 3.5rem 0; }
+      .hero { padding: 3rem 0 2.5rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .container { width: calc(100% - 2rem); }
     }
   </style>
 </head>
 <body>
+
+  <!-- ── NAV ── -->
   <nav class="nav">
     <div class="nav-inner">
-      <div class="brand">Macarthur<span>.</span></div>
-      <div class="nav-links">
-        <a href="#about">About</a>
-        <a href="#experience">Experience</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
-        <a class="btn btn-secondary" href="doc/Macarthur_Diby_resume.pdf" target="_blank">Resume</a>
+      <a href="#" class="brand">Macarthur<span class="dot">.</span></a>
+      <div class="nav-right">
+        <nav class="nav-links">
+          <a href="#about">About</a>
+          <a href="#experience">Experience</a>
+          <a href="#projects">Projects</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <a class="btn-nav" href="doc/Macarthur_Diby_resume.pdf" target="_blank">Resume ↗</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">☾</button>
       </div>
     </div>
   </nav>
 
+  <!-- ── HERO ── -->
   <header class="hero">
     <div class="container hero-grid">
       <div>
-        <div class="eyebrow">Software Engineer • Technical Support Engineer • Automation Builder</div>
-        <h1>
-          Building <span class="accent">practical systems</span> that improve workflows, solve technical problems, and create business impact.
-        </h1>
-        <p>
-          I’m Macarthur Diby, a Software Engineer and Technical Support Engineer with a B.S. in Computer Science from Texas Tech University. I build automation tools, internal systems, and full-stack applications, and I work comfortably across engineering, operations, and enterprise support.
+        <div class="eyebrow">Software Engineer · Austin, TX</div>
+        <h1>Building <em>practical systems</em><br>that drive real results.</h1>
+        <p class="lead">
+          I'm Macarthur Diby — a Software Engineer and Technical Support Engineer with a B.S. in Computer Science from Texas Tech University. I build automation tools, full-stack applications, and AI-powered systems that make work faster, smarter, and more reliable.
         </p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#projects">View Projects</a>
-          <a class="btn btn-secondary" href="doc/Macarthur_Diby_resume.pdf" target="_blank">Download Resume</a>
+          <a class="btn btn-primary" href="#projects">See My Work</a>
+          <a class="btn btn-outline" href="doc/Macarthur_Diby_resume.pdf" target="_blank">Download Resume</a>
         </div>
       </div>
 
-      <div class="hero-card profile-card">
+      <div class="profile-card">
         <div class="profile-img-wrap">
           <img src="img/mac_me.jpg" alt="Macarthur Diby" />
         </div>
         <div class="profile-meta">
-          <div class="meta-row"><span>Based in</span><strong>Austin, TX</strong></div>
-          <div class="meta-row"><span>Focus</span><strong>Automation, Full-Stack, AI, Enterprise Support</strong></div>
-          <div class="meta-row"><span>Email</span><strong>dibycamael@gmail.com</strong></div>
-          <div class="meta-row"><span>Languages</span><strong>English, French</strong></div>
+          <div class="meta-row"><span class="label">Based in</span><span class="value">Austin, TX</span></div>
+          <div class="meta-row"><span class="label">Focus</span><span class="value">AI · Automation · Full-Stack</span></div>
+          <div class="meta-row"><span class="label">Email</span><span class="value" style="font-size:0.78rem;">dibycamael@gmail.com</span></div>
+          <div class="meta-row"><span class="label">Languages</span><span class="value">English, French</span></div>
         </div>
       </div>
     </div>
   </header>
 
-  <main>
-    <section>
-      <div class="container">
-        <div class="grid-4">
-          <div class="stat-card">
-            <h3>8+</h3>
-            <p>Projects built across AI, full-stack, ML, and systems engineering.</p>
-          </div>
-          <div class="stat-card">
-            <h3>3+</h3>
-            <p>Years of hands-on technical experience across support and engineering work.</p>
-          </div>
-          <div class="stat-card">
-            <h3>98%+</h3>
-            <p>Customer satisfaction in enterprise support environments.</p>
-          </div>
-          <div class="stat-card">
-            <h3>20%</h3>
-            <p>Faster resolution through automation and improved diagnostics.</p>
-          </div>
+  <!-- ── STATS ── -->
+  <div class="stats-strip">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item reveal">
+          <div class="stat-num">12+</div>
+          <p>Projects across AI, full-stack, ML, and systems engineering</p>
+        </div>
+        <div class="stat-item reveal reveal-d1">
+          <div class="stat-num">3+</div>
+          <p>Years of hands-on technical experience</p>
+        </div>
+        <div class="stat-item reveal reveal-d2">
+          <div class="stat-num">98%</div>
+          <p>Customer satisfaction in enterprise support environments</p>
+        </div>
+        <div class="stat-item reveal reveal-d3">
+          <div class="stat-num">28×</div>
+          <p>Faster ML inference via knowledge distillation pipeline</p>
         </div>
       </div>
-    </section>
+    </div>
+  </div>
 
+  <main>
+
+    <!-- ── ABOUT ── -->
     <section id="about">
       <div class="container">
-        <div class="section-title">
-          <h2>About</h2>
-          <p>
-            I focus on building tools and systems that make technical work more efficient, more reliable, and more useful to real users and teams.
-          </p>
+        <div class="section-header reveal">
+          <div class="section-label">About</div>
+          <h2>Engineer by training,<br>builder by nature.</h2>
+          <p>I focus on tools that reduce friction, automate the repetitive, and make technical work more impactful.</p>
         </div>
-
         <div class="about-grid">
-          <div class="card about-copy">
+          <div class="card about-copy reveal">
             <h3>Professional Summary</h3>
-            <p>
-              I’m a Software Engineer and Technical Support Engineer focused on building practical solutions that improve workflows, reduce manual effort, and solve real technical problems. My experience spans automation, internal tools, enterprise support, and full-stack development, which allows me to operate effectively across both engineering and operations teams.
-            </p>
-            <p>
-              I enjoy working with Python, APIs, cloud technologies, and modern web frameworks to build reliable and scalable systems. I’m especially interested in automation, applied AI, user-focused products, and tools that create measurable business impact.
-            </p>
+            <p>I'm a Software Engineer and Technical Support Engineer focused on building practical solutions that improve workflows, reduce manual effort, and solve real technical problems. My background spans automation, internal tooling, enterprise support, and full-stack development — which lets me move fluidly between engineering and operations teams.</p>
+            <p>I'm especially drawn to applied AI, workflow automation, and user-focused products. I like working on things that create measurable impact — whether that's cutting processing time, improving diagnostic accuracy, or shipping something people actually use.</p>
             <div class="tag-list">
               <span class="tag">Python Automation</span>
               <span class="tag">Full-Stack Development</span>
-              <span class="tag">Enterprise Troubleshooting</span>
-              <span class="tag">Applied AI</span>
-              <span class="tag">Cloud & APIs</span>
+              <span class="tag">Applied AI / ML</span>
+              <span class="tag">Enterprise Support</span>
+              <span class="tag">Cloud &amp; APIs</span>
             </div>
           </div>
-
-          <div class="card">
+          <div class="card reveal reveal-d1">
             <div class="skills-list">
               <div class="skill-item">
                 <h4>Languages</h4>
                 <p>Python, JavaScript, TypeScript, Java, C/C++, C#, SQL, HTML/CSS</p>
               </div>
               <div class="skill-item">
-                <h4>Frameworks & Libraries</h4>
-                <p>React, Node.js, Flask, React Native, TensorFlow, Keras, OpenCV, Scikit-learn</p>
+                <h4>Frameworks &amp; Libraries</h4>
+                <p>React, Node.js, Flask, React Native, PyTorch, TensorFlow, OpenCV, Scikit-learn</p>
               </div>
               <div class="skill-item">
-                <h4>Cloud & DevOps</h4>
+                <h4>Cloud &amp; DevOps</h4>
                 <p>AWS, Docker, Kubernetes, Jenkins, GitHub Actions, CI/CD, Linux</p>
               </div>
               <div class="skill-item">
-                <h4>Tools</h4>
+                <h4>Tools &amp; Platforms</h4>
                 <p>Git, Jira, ServiceNow, REST APIs, OpenAI API, Gemini API, Prompt Engineering</p>
               </div>
             </div>
@@ -627,41 +741,47 @@
       </div>
     </section>
 
-    <section id="experience">
+    <!-- ── EXPERIENCE ── -->
+    <section id="experience" class="bg-soft-section">
       <div class="container">
-        <div class="section-title">
-          <h2>Experience</h2>
-          <p>
-            Recent work across enterprise support, workflow automation, API integration, and internal tooling.
-          </p>
+        <div class="section-header reveal">
+          <div class="section-label">Experience</div>
+          <h2>Where I've worked.</h2>
+          <p>Recent roles across enterprise support, automation, API integration, and internal tooling.</p>
         </div>
-
         <div class="experience-grid">
-          <div class="card exp-card">
-            <h3>Technical Support Engineer — Dell Technologies</h3>
-            <div class="sub">Austin, TX • Jun 2025 – Present</div>
+          <div class="card exp-card reveal">
+            <div class="exp-header">
+              <h3>Technical Support Engineer</h3>
+              <span class="exp-date">Jun 2025 – Present</span>
+            </div>
+            <div class="exp-company">Dell Technologies · Austin, TX</div>
             <ul>
-              <li>Diagnose software and hardware failures for enterprise clients across support channels with 98%+ customer satisfaction.</li>
+              <li>Diagnose software and hardware failures for enterprise clients with 98%+ customer satisfaction.</li>
               <li>Contribute to automation and data-driven diagnostic workflows that reduce resolution time by 20%.</li>
-              <li>Collaborate with software engineers to trace system-level bugs and improve root-cause analysis and patch readiness.</li>
+              <li>Collaborate with engineering teams to trace system-level bugs and improve root-cause analysis.</li>
             </ul>
           </div>
-
-          <div class="card exp-card">
-            <h3>Software Engineer — MDbilling / WoundCentrics</h3>
-            <div class="sub">Lubbock, TX • Jan 2025 – May 2025</div>
+          <div class="card exp-card reveal reveal-d1">
+            <div class="exp-header">
+              <h3>Software Engineer</h3>
+              <span class="exp-date">Jan – May 2025</span>
+            </div>
+            <div class="exp-company">MDbilling / WoundCentrics · Lubbock, TX</div>
             <ul>
               <li>Built Python tools to automate billing workflows, reducing processing time by 30%.</li>
-              <li>Developed a clickstream tracking system to analyze user behavior and reduce manual work by 40%.</li>
+              <li>Developed a clickstream tracking system to analyze user behavior and cut manual work by 40%.</li>
               <li>Integrated APIs and dashboards for real-time claims tracking, lowering rejection rates by 25%.</li>
             </ul>
           </div>
-
-          <div class="card exp-card">
-            <h3>IT Systems Technician — IT Help Central, Texas Tech University</h3>
-            <div class="sub">Lubbock, TX • Jul 2022 – Dec 2024</div>
+          <div class="card exp-card reveal reveal-d2">
+            <div class="exp-header">
+              <h3>IT Systems Technician</h3>
+              <span class="exp-date">Jul 2022 – Dec 2024</span>
+            </div>
+            <div class="exp-company">IT Help Central, Texas Tech University · Lubbock, TX</div>
             <ul>
-              <li>Resolved 300+ support tickets for 150+ students across hardware, software, and connectivity issues.</li>
+              <li>Resolved 300+ support tickets for 150+ students across hardware, software, and connectivity.</li>
               <li>Trained incoming technicians on troubleshooting workflows, reducing repeat incidents by 15%.</li>
               <li>Improved team resolution speed through better support processes and knowledge sharing.</li>
             </ul>
@@ -670,215 +790,262 @@
       </div>
     </section>
 
+    <!-- ── PROJECTS ── -->
     <section id="projects">
       <div class="container">
-        <div class="section-title">
-          <h2>Selected Projects</h2>
-          <p>
-            Projects across applied AI, systems engineering, full-stack development, automation, and data-driven tools.
-          </p>
+        <div class="section-header reveal">
+          <div class="section-label">Projects</div>
+          <h2>Things I've built.</h2>
+          <p>From applied AI and systems engineering to full-stack apps and automation tools.</p>
         </div>
 
+        <!-- FEATURED -->
+        <div class="sub-label">Featured Work</div>
+        <div class="featured-stack">
+
+          <div class="featured-row">
+            <article class="project-card featured reveal">
+              <div class="proj-meta">
+                <h3>LLM Knowledge Distillation Pipeline</h3>
+                <span class="proj-badge">ML / AI</span>
+              </div>
+              <p>End-to-end knowledge distillation system that uses Claude Haiku as a teacher model to label support tickets, then trains a DistilBERT student — achieving <strong>28× faster inference</strong> at near-zero serving cost. Includes a Streamlit evaluation dashboard for monitoring classifier accuracy.</p>
+              <div class="tech-stack">
+                <span>Python</span><span>PyTorch</span><span>Hugging Face</span><span>LLM APIs</span><span>Streamlit</span>
+              </div>
+              <div class="proj-links">
+                <a href="https://github.com/Camaelo26/distilled-support-classifier" target="_blank">GitHub ↗</a>
+              </div>
+            </article>
+
+            <article class="project-card featured reveal reveal-d1">
+              <div class="proj-meta">
+                <h3>Drowsiness Detection System</h3>
+                <span class="proj-badge">Computer Vision</span>
+              </div>
+              <p>Real-time driver drowsiness detection using eye-tracking, OpenCV, and machine learning to flag unsafe driving behavior — with integration paths into web and mobile platforms.</p>
+              <div class="tech-stack">
+                <span>Python</span><span>OpenCV</span><span>ML</span><span>Flask</span><span>React Native</span>
+              </div>
+              <div class="proj-links">
+                <a href="https://github.com/Camaelo26/driver_eye_tracker" target="_blank">GitHub ↗</a>
+                <a href="https://youtu.be/i1bKJ9D5rJ8" target="_blank">Demo ▶</a>
+              </div>
+            </article>
+          </div>
+
+          <article class="project-card featured-wide reveal">
+            <div class="featured-wide-inner">
+              <div>
+                <div class="proj-meta" style="margin-bottom:0.8rem;">
+                  <h3>Mental Health Awareness Platform</h3>
+                  <span class="proj-badge">Full-Stack</span>
+                </div>
+                <p>Full-stack mental health platform with an AI chatbot, goal tracking, and wellness resources — designed to improve accessibility and user engagement. Live and deployed.</p>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:1rem;justify-content:flex-end;">
+                <div class="tech-stack">
+                  <span>React</span><span>TypeScript</span><span>Node.js</span><span>MongoDB</span><span>AI Chatbot</span>
+                </div>
+                <div class="proj-links">
+                  <a href="https://github.com/Camaelo26/figma_frontend" target="_blank">GitHub ↗</a>
+                  <a href="https://mentalhealthmac.netlify.app/" target="_blank">Live Demo ↗</a>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- MORE PROJECTS -->
+        <div class="sub-label">More Projects</div>
         <div class="projects-grid">
-          <article class="card project-card">
-            <div class="project-top">
-              <h3>LLM Knowledge Distillation Pipeline</h3>
-              <span class="project-badge">Featured</span>
-            </div>
-            <p>
-              Built an end-to-end knowledge distillation pipeline using LLM-labeled support tickets and DistilBERT training, achieving 28× faster inference at near-zero serving cost.
-            </p>
-            <div class="tech-stack">
-              <span>Python</span>
-              <span>PyTorch</span>
-              <span>Hugging Face</span>
-              <span>LLM APIs</span>
-              <span>Streamlit</span>
-            </div>
-            <div class="project-links">
-              <a href="https://github.com/Camaelo26/distilled-support-classifier" target="_blank">GitHub ↗</a>
-            </div>
-          </article>
 
-          <article class="card project-card">
-            <div class="project-top">
-              <h3>Mental Health Awareness App</h3>
-              <span class="project-badge">Full-Stack</span>
+          <article class="project-card compact reveal">
+            <div class="proj-meta">
+              <h3>AI Debate System</h3>
+              <span class="proj-badge">AI Platform</span>
             </div>
-            <p>
-              Built a full-stack mental health platform with an AI chatbot, goal tracking, and wellness resources, designed to improve accessibility and user engagement.
-            </p>
-            <div class="tech-stack">
-              <span>React</span>
-              <span>TypeScript</span>
-              <span>Node.js</span>
-              <span>MongoDB</span>
-              <span>AI Chatbot</span>
-            </div>
-            <div class="project-links">
-              <a href="https://github.com/Camaelo26/figma_frontend" target="_blank">GitHub ↗</a>
-              <a href="https://mentalhealthmac.netlify.app/" target="_blank">Live Demo ↗</a>
-            </div>
-          </article>
-
-          <article class="card project-card">
-  <div class="project-top">
-    <h3>Drowsiness Detection System</h3>
-    <span class="project-badge">Computer Vision</span>
-  </div>
-
-  <p>
-    Developed a real-time drowsiness detection system using eye-tracking, OpenCV, and machine learning to detect unsafe driving behavior, with exploration into web and mobile integration.
-  </p>
-
-  <div class="tech-stack">
-    <span>Python</span>
-    <span>OpenCV</span>
-    <span>Machine Learning</span>
-    <span>Flask</span>
-    <span>React Native</span>
-  </div>
-
-  <div class="project-links">
-    <a href="https://github.com/Camaelo26/driver_eye_tracker" target="_blank">GitHub ↗</a>
-    <a href="https://youtu.be/i1bKJ9D5rJ8" target="_blank">YouTube Demo ▶</a>
-  </div>
-</article>
-
-          <article class="card project-card">
-            <div class="project-top">
-              <h3>AI-Powered Debate System</h3>
-              <span class="project-badge">AI Platform</span>
-            </div>
-            <p>
-              Built a multi-model AI debate platform that simulates debates, generates arguments, and evaluates outcomes through scoring workflows.
-            </p>
-            <div class="tech-stack">
-              <span>React</span>
-              <span>Node.js</span>
-              <span>LLM APIs</span>
-              <span>AWS</span>
-            </div>
-            <div class="project-links">
+            <p>Multi-model AI platform that simulates debates, generates arguments, and scores outcomes through automated evaluation workflows.</p>
+            <div class="tech-stack"><span>React</span><span>Node.js</span><span>LLM APIs</span><span>AWS</span></div>
+            <div class="proj-links">
               <a href="https://github.com/Camaelo26/ai_debate_app" target="_blank">GitHub ↗</a>
             </div>
           </article>
 
-          <article class="card project-card">
-            <div class="project-top">
-              <h3>Patient Appointment Management System</h3>
-              <span class="project-badge">Backend</span>
+          <article class="project-card compact reveal reveal-d1">
+            <div class="proj-meta">
+              <h3>Cell Life Simulator</h3>
+              <span class="proj-badge">HPC / Parallel</span>
             </div>
-            <p>
-              Built a full-stack healthcare scheduling system with role-based access and database-backed appointment management to handle 100+ daily bookings.
-            </p>
-            <div class="tech-stack">
-              <span>Python</span>
-              <span>Flask</span>
-              <span>SQL</span>
-              <span>JavaScript</span>
+            <p>Simulates modified cellular life across 100 time steps on matrices up to 10,000×10,000 using parallel processing on a university HPC cluster.</p>
+            <div class="tech-stack"><span>Python</span><span>Parallel Processing</span><span>HPC</span></div>
+            <div class="proj-links">
+              <a href="https://github.com/Camaelo26/cell-life-simulator" target="_blank">GitHub ↗</a>
             </div>
-            <div class="project-links">
+          </article>
+
+          <article class="project-card compact reveal reveal-d2">
+            <div class="proj-meta">
+              <h3>Patient Appointment System</h3>
+              <span class="proj-badge">Backend</span>
+            </div>
+            <p>Full-stack healthcare scheduling system with role-based access and database-backed appointment management for 100+ daily bookings.</p>
+            <div class="tech-stack"><span>Python</span><span>Flask</span><span>SQL</span><span>JavaScript</span></div>
+            <div class="proj-links">
               <a href="https://github.com/Camaelo26/sched-me-website" target="_blank">GitHub ↗</a>
             </div>
           </article>
 
-          <article class="card project-card">
-            <div class="project-top">
-              <h3>Machine Failure Prediction Pipeline</h3>
-              <span class="project-badge">ML</span>
-            </div>
-            <p>
-              Built a supervised machine learning pipeline from scratch to predict machine failure using logistic regression with 92% accuracy.
-            </p>
-            <div class="tech-stack">
-              <span>Python</span>
-              <span>Scikit-learn</span>
-              <span>Supervised ML</span>
-            </div>
-            <div class="project-links">
-              <a href="https://github.com/Camaelo26" target="_blank">GitHub ↗</a>
-            </div>
-          </article>
-
-          <article class="card project-card">
-            <div class="project-top">
+          <article class="project-card compact reveal">
+            <div class="proj-meta">
               <h3>Elevator Scheduler</h3>
-              <span class="project-badge">Systems</span>
+              <span class="proj-badge">Systems / C++</span>
             </div>
-            <p>
-              Developed a multithreaded elevator scheduling system in C++ using mutexes, condition variables, and REST APIs, reducing average passenger wait time by 20–30% over a baseline algorithm.
-            </p>
-            <div class="tech-stack">
-              <span>C++</span>
-              <span>Multithreading</span>
-              <span>REST APIs</span>
-              <span>Systems Design</span>
-            </div>
-            <div class="project-links">
+            <p>Multithreaded elevator scheduling using mutexes, condition variables, and REST APIs — cuts average wait time by 20–30% over baseline algorithm.</p>
+            <div class="tech-stack"><span>C++</span><span>Multithreading</span><span>REST APIs</span></div>
+            <div class="proj-links">
               <a href="https://github.com/Camaelo26/elevator-scheduler-" target="_blank">GitHub ↗</a>
             </div>
           </article>
 
-          <article class="card project-card">
-            <div class="project-top">
+          <article class="project-card compact reveal reveal-d1">
+            <div class="proj-meta">
               <h3>Political Map of Africa</h3>
-              <span class="project-badge">Web</span>
+              <span class="proj-badge">Web App</span>
             </div>
-            <p>
-              Built an interactive educational web app with 54 country pages and curated political history content, deployed on AWS and designed for accessible exploration.
-            </p>
-            <div class="tech-stack">
-              <span>HTML</span>
-              <span>CSS</span>
-              <span>JavaScript</span>
-              <span>AWS S3</span>
-              <span>REST API</span>
-            </div>
-            <div class="project-links">
+            <p>Interactive educational app with 54 country pages and curated political history content. Deployed publicly on AWS S3.</p>
+            <div class="tech-stack"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>AWS S3</span></div>
+            <div class="proj-links">
               <a href="https://github.com/Camaelo26/Africa-truth" target="_blank">GitHub ↗</a>
-              <a href="http://politicalmapafrica.s3-website-us-east-1.amazonaws.com/" target="_blank">Live Demo ↗</a>
+              <a href="http://politicalmapafrica.s3-website-us-east-1.amazonaws.com/" target="_blank">Live ↗</a>
             </div>
           </article>
+
+          <article class="project-card compact reveal reveal-d2">
+            <div class="proj-meta">
+              <h3>Source Reliability via Inversions</h3>
+              <span class="proj-badge">Algorithms</span>
+            </div>
+            <p>Adapts Merge Sort and Quick Sort with inversion counting to compute a reliability metric for ranking sources in meta-search engines.</p>
+            <div class="tech-stack"><span>Python</span><span>Algorithms</span><span>Data Structures</span></div>
+            <div class="proj-links">
+              <a href="https://github.com/Camaelo26/Find-source-reliability-by-counting-inversions-during-sorting-" target="_blank">GitHub ↗</a>
+            </div>
+          </article>
+
+          <article class="project-card compact reveal">
+            <div class="proj-meta">
+              <h3>Bank Account Management</h3>
+              <span class="proj-badge">Java</span>
+            </div>
+            <p>Object-oriented banking system implementing account operations, transaction history, and multiple account types using core Java OOP principles.</p>
+            <div class="tech-stack"><span>Java</span><span>OOP</span><span>Data Structures</span></div>
+            <div class="proj-links">
+              <a href="https://github.com/Camaelo26/bank-account-management-system" target="_blank">GitHub ↗</a>
+            </div>
+          </article>
+
+          <article class="project-card compact reveal reveal-d1">
+            <div class="proj-meta">
+              <h3>Browser Shooting Game</h3>
+              <span class="proj-badge">Game / JS</span>
+            </div>
+            <p>A browser-based 2D shooting game built with vanilla JavaScript, featuring a game loop, collision detection, and real-time canvas rendering.</p>
+            <div class="tech-stack"><span>JavaScript</span><span>Canvas API</span><span>HTML/CSS</span></div>
+            <div class="proj-links">
+              <a href="https://github.com/Camaelo26/shooting-game" target="_blank">GitHub ↗</a>
+            </div>
+          </article>
+
+          <article class="project-card compact reveal reveal-d2">
+            <div class="proj-meta">
+              <h3>Lexical Analyzer &amp; Parser</h3>
+              <span class="proj-badge">Compilers</span>
+            </div>
+            <p>A lexical analyzer and recursive descent syntax parser in C — tokenizes and validates grammar rules for a custom language definition.</p>
+            <div class="tech-stack"><span>C</span><span>Compilers</span><span>Parsing</span></div>
+            <div class="proj-links">
+              <a href="https://github.com/Camaelo26/-LEXICAL-ANALYZER-AND-RECURSIVE-DESCENT-SYNTAX-PARSER-" target="_blank">GitHub ↗</a>
+            </div>
+          </article>
+
         </div>
       </div>
     </section>
 
-    <section id="contact">
+    <!-- ── CONTACT ── -->
+    <section id="contact" class="bg-soft-section">
       <div class="container">
         <div class="contact-grid">
-          <div class="card contact-copy">
-            <h2>Let’s connect</h2>
-            <p>
-              I’m open to opportunities in software engineering, technical support engineering, automation, internal tools, and AI-adjacent roles.
-            </p>
-            <div class="contact-list">
+          <div class="contact-copy reveal">
+            <div class="section-label">Contact</div>
+            <h2>Let's build<br>something together.</h2>
+            <p>I'm open to opportunities in software engineering, technical support, automation, internal tooling, and AI-adjacent roles. Don't hesitate to reach out.</p>
+            <div class="contact-details">
               <div><strong>Location:</strong> Austin, TX</div>
-              <div><strong>Email:</strong> dibycamael@gmail.com</div>
+              <div><strong>Email:</strong> <a href="mailto:dibycamael@gmail.com">dibycamael@gmail.com</a></div>
               <div><strong>Phone:</strong> 972-217-0322</div>
               <div><strong>Languages:</strong> English, French</div>
             </div>
-            <div class="hero-actions" style="margin-top: 1.4rem;">
-              <a class="btn btn-primary" href="mailto:dibycamael@gmail.com">Email Me</a>
-              <a class="btn btn-secondary" href="doc/Macarthur_Diby_resume.pdf" target="_blank">View Resume</a>
+            <div class="hero-actions" style="margin-top:1.5rem;">
+              <a class="btn btn-primary" href="mailto:dibycamael@gmail.com">Send an Email</a>
+              <a class="btn btn-outline" href="doc/Macarthur_Diby_resume.pdf" target="_blank">View Resume</a>
             </div>
           </div>
 
-          <div class="card">
-            <h3 style="margin-bottom: 0.8rem;">Profiles</h3>
-            <div class="contact-list">
-              <div><strong>GitHub:</strong> <a href="https://github.com/Camaelo26" target="_blank">github.com/Camaelo26</a></div>
-              <div><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/macarthurdiby/" target="_blank">macarthur-diby-/a></div>
-              <div><strong>Portfolio Focus:</strong> Automation, AI, Full-Stack, Enterprise Systems</div>
+          <div class="card profiles-card reveal reveal-d1">
+            <h3>Online Profiles</h3>
+            <div class="profiles-list">
+              <a href="https://github.com/Camaelo26" target="_blank" class="profile-link">
+                <span class="platform">GitHub</span>
+                <span class="handle">github.com/Camaelo26</span>
+              </a>
+              <a href="https://www.linkedin.com/in/macarthurdiby/" target="_blank" class="profile-link">
+                <span class="platform">LinkedIn</span>
+                <span class="handle">linkedin.com/in/macarthurdiby</span>
+              </a>
             </div>
           </div>
         </div>
       </div>
     </section>
+
   </main>
 
   <footer class="footer">
-    Designed to present a clean, modern, recruiter-friendly engineering brand.
+    <div class="footer-inner">
+      <div class="footer-brand">Macarthur<span class="dot">.</span></div>
+      <div class="footer-copy">© 2026 Macarthur Diby · Austin, TX</div>
+    </div>
   </footer>
+
+  <script>
+    // ── Dark mode ──
+    const html   = document.documentElement;
+    const toggle = document.getElementById('themeToggle');
+
+    const saved       = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const init        = saved ?? (prefersDark ? 'dark' : 'light');
+
+    html.dataset.theme  = init;
+    toggle.textContent  = init === 'dark' ? '☀' : '☾';
+
+    toggle.addEventListener('click', () => {
+      const dark         = html.dataset.theme === 'dark';
+      html.dataset.theme = dark ? 'light' : 'dark';
+      toggle.textContent = dark ? '☾' : '☀';
+      localStorage.setItem('theme', html.dataset.theme);
+    });
+
+    // ── Scroll reveal ──
+    const io = new IntersectionObserver(
+      entries => entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+      }),
+      { threshold: 0.07 }
+    );
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
 </body>
 </html>
