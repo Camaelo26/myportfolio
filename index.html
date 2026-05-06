@@ -57,7 +57,6 @@
       -webkit-font-smoothing: antialiased;
       transition: background-color var(--ease), color var(--ease);
     }
-    /* subtle grain overlay — the "handcrafted" touch */
     body::after {
       content: '';
       position: fixed;
@@ -725,11 +724,11 @@
               </div>
               <div class="skill-item">
                 <h4>Frameworks &amp; Libraries</h4>
-                <p>React, Node.js, Flask, React Native, PyTorch, TensorFlow, OpenCV, Scikit-learn</p>
+                <p>React, Next.js, Node.js, Flask, Expo / React Native, PyTorch, TensorFlow, OpenCV, Scikit-learn</p>
               </div>
               <div class="skill-item">
                 <h4>Cloud &amp; DevOps</h4>
-                <p>AWS, Docker, Kubernetes, Jenkins, GitHub Actions, CI/CD, Linux</p>
+                <p>AWS, Vercel, Supabase, Docker, Kubernetes, Jenkins, GitHub Actions, CI/CD, Linux</p>
               </div>
               <div class="skill-item">
                 <h4>Tools &amp; Platforms</h4>
@@ -838,18 +837,19 @@
             <div class="featured-wide-inner">
               <div>
                 <div class="proj-meta" style="margin-bottom:0.8rem;">
-                  <h3>Mental Health Awareness Platform</h3>
-                  <span class="proj-badge">Full-Stack</span>
+                  <h3>AfricaTruth v2</h3>
+                  <span class="proj-badge">Full-Stack · Live</span>
                 </div>
-                <p>Full-stack mental health platform with an AI chatbot, goal tracking, and wellness resources — designed to improve accessibility and user engagement. Live and deployed.</p>
+                <p>Production-grade bilingual educational platform covering the political history of all 54 African nations. Features an interactive SVG map built with react-simple-maps, a 3-mode geography quiz (Map, Capital, Flag), curated YouTube video archives per country, and full EN/FR i18n. Live on Vercel with a React Native mobile companion app (Expo) featuring the same interactive map and video playback.</p>
               </div>
               <div style="display:flex;flex-direction:column;gap:1rem;justify-content:flex-end;">
                 <div class="tech-stack">
-                  <span>React</span><span>TypeScript</span><span>Node.js</span><span>MongoDB</span><span>AI Chatbot</span>
+                  <span>Next.js 16</span><span>TypeScript</span><span>Supabase</span><span>Tailwind CSS v4</span><span>react-simple-maps</span><span>Expo</span><span>React Native</span>
                 </div>
                 <div class="proj-links">
-                  <a href="https://github.com/Camaelo26/figma_frontend" target="_blank">GitHub ↗</a>
-                  <a href="https://mentalhealthmac.netlify.app/" target="_blank">Live Demo ↗</a>
+                  <a href="https://africa-truth-v2.vercel.app" target="_blank">Live Site ↗</a>
+                  <a href="https://github.com/Camaelo26/Africa-truth-v2" target="_blank">Web GitHub ↗</a>
+                  <a href="https://github.com/Camaelo26/africa-truth-mobile" target="_blank">Mobile GitHub ↗</a>
                 </div>
               </div>
             </div>
@@ -874,6 +874,31 @@
 
           <article class="project-card compact reveal reveal-d1">
             <div class="proj-meta">
+              <h3>AfricaTruth Mobile</h3>
+              <span class="proj-badge">Mobile App</span>
+            </div>
+            <p>React Native companion to AfricaTruth v2 — interactive Africa map with SVG + d3-geo, country detail pages with political history videos, and bilingual EN/FR toggle.</p>
+            <div class="tech-stack"><span>Expo</span><span>React Native</span><span>TypeScript</span><span>SVG</span><span>Supabase</span></div>
+            <div class="proj-links">
+              <a href="https://github.com/Camaelo26/africa-truth-mobile" target="_blank">GitHub ↗</a>
+            </div>
+          </article>
+
+          <article class="project-card compact reveal reveal-d2">
+            <div class="proj-meta">
+              <h3>Mental Health Awareness Platform</h3>
+              <span class="proj-badge">Full-Stack</span>
+            </div>
+            <p>Full-stack mental health platform with an AI chatbot, goal tracking, and wellness resources — designed to improve accessibility and user engagement. Live and deployed.</p>
+            <div class="tech-stack"><span>React</span><span>TypeScript</span><span>Node.js</span><span>MongoDB</span><span>AI Chatbot</span></div>
+            <div class="proj-links">
+              <a href="https://github.com/Camaelo26/figma_frontend" target="_blank">GitHub ↗</a>
+              <a href="https://mentalhealthmac.netlify.app/" target="_blank">Live Demo ↗</a>
+            </div>
+          </article>
+
+          <article class="project-card compact reveal">
+            <div class="proj-meta">
               <h3>Cell Life Simulator</h3>
               <span class="proj-badge">HPC / Parallel</span>
             </div>
@@ -884,7 +909,7 @@
             </div>
           </article>
 
-          <article class="project-card compact reveal reveal-d2">
+          <article class="project-card compact reveal reveal-d1">
             <div class="proj-meta">
               <h3>Patient Appointment System</h3>
               <span class="proj-badge">Backend</span>
@@ -896,7 +921,7 @@
             </div>
           </article>
 
-          <article class="project-card compact reveal">
+          <article class="project-card compact reveal reveal-d2">
             <div class="proj-meta">
               <h3>Elevator Scheduler</h3>
               <span class="proj-badge">Systems / C++</span>
@@ -908,20 +933,7 @@
             </div>
           </article>
 
-          <article class="project-card compact reveal reveal-d1">
-            <div class="proj-meta">
-              <h3>Political Map of Africa</h3>
-              <span class="proj-badge">Web App</span>
-            </div>
-            <p>Interactive educational app with 54 country pages and curated political history content. Deployed publicly on AWS S3.</p>
-            <div class="tech-stack"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>AWS S3</span></div>
-            <div class="proj-links">
-              <a href="https://github.com/Camaelo26/Africa-truth" target="_blank">GitHub ↗</a>
-              <a href="http://politicalmapafrica.s3-website-us-east-1.amazonaws.com/" target="_blank">Live ↗</a>
-            </div>
-          </article>
-
-          <article class="project-card compact reveal reveal-d2">
+          <article class="project-card compact reveal">
             <div class="proj-meta">
               <h3>Source Reliability via Inversions</h3>
               <span class="proj-badge">Algorithms</span>
@@ -933,7 +945,7 @@
             </div>
           </article>
 
-          <article class="project-card compact reveal">
+          <article class="project-card compact reveal reveal-d1">
             <div class="proj-meta">
               <h3>Bank Account Management</h3>
               <span class="proj-badge">Java</span>
@@ -945,7 +957,7 @@
             </div>
           </article>
 
-          <article class="project-card compact reveal reveal-d1">
+          <article class="project-card compact reveal reveal-d2">
             <div class="proj-meta">
               <h3>Browser Shooting Game</h3>
               <span class="proj-badge">Game / JS</span>
@@ -957,7 +969,7 @@
             </div>
           </article>
 
-          <article class="project-card compact reveal reveal-d2">
+          <article class="project-card compact reveal">
             <div class="proj-meta">
               <h3>Lexical Analyzer &amp; Parser</h3>
               <span class="proj-badge">Compilers</span>
