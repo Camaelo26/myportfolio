@@ -211,10 +211,10 @@
   <div class="stats-strip">
     <div class="container">
       <div class="stats-grid">
-        <div class="stat-item reveal"><div class="stat-num">12+</div><p>Projects across AI, full-stack, ML, and systems engineering</p></div>
+        <div class="stat-item reveal"><div class="stat-num">16+</div><p>Projects across AI, full-stack, ML, and systems engineering</p></div>
         <div class="stat-item reveal reveal-d1"><div class="stat-num">3+</div><p>Years of hands-on technical experience</p></div>
         <div class="stat-item reveal reveal-d2"><div class="stat-num">98%</div><p>Customer satisfaction in enterprise support environments</p></div>
-        <div class="stat-item reveal reveal-d3"><div class="stat-num">28×</div><p>Faster ML inference via knowledge distillation pipeline</p></div>
+        <div class="stat-item reveal reveal-d3"><div class="stat-num">65×</div><p>Faster ML inference via knowledge distillation pipeline</p></div>
       </div>
     </div>
   </div>
@@ -299,8 +299,38 @@
         <div class="featured-stack">
           <div class="featured-row">
             <article class="project-card featured reveal">
+              <div class="proj-meta"><h3>agent-eval-lab</h3><span class="proj-badge">LLM Evaluation</span></div>
+              <p>Evaluation harness for LLM agents: golden datasets, deterministic metrics, a CI gate that blocks a release when quality regresses, and an LLM-as-judge that is <strong>itself audited</strong> against cases whose correct verdict is already known. A judge that fails its own audit is not allowed to gate a release. Documented finding: the lexical judge scores a flipped number at <strong>0.889</strong> and a correct paraphrase at <strong>0.710</strong>, ranking a wrong answer above a right one. <strong>77 tests passing.</strong></p>
+              <div class="tech-stack"><span>Python</span><span>FastAPI</span><span>pytest</span><span>LLM Evals</span><span>Anthropic API</span><span>Prometheus</span></div>
+              <div class="proj-links"><a href="https://github.com/Camaelo26/agent-eval-lab" target="_blank">GitHub ↗</a></div>
+            </article>
+            <article class="project-card featured reveal reveal-d1">
+              <div class="proj-meta"><h3>stream-ops</h3><span class="proj-badge">Data Engineering</span></div>
+              <p>Event-time stream processing built to survive redelivery, late and out-of-order events, and poison records. Kafka's semantics with no broker. Caught a real bug in its own watermark: partition skew classified <strong>37.5% of the stream as late</strong> and silently under-reported revenue by <strong>51%</strong>, fixed with per-source minimum watermarks and cut to 2.05%. Replaying the whole log leaves every emitted window byte-identical. <strong>78 tests passing.</strong></p>
+              <div class="tech-stack"><span>Python</span><span>Watermarks</span><span>Idempotency</span><span>Kafka Semantics</span><span>EWMA</span><span>pytest</span></div>
+              <div class="proj-links"><a href="https://github.com/Camaelo26/stream-ops" target="_blank">GitHub ↗</a></div>
+            </article>
+          </div>
+
+          <div class="featured-row">
+            <article class="project-card featured reveal">
+              <div class="proj-meta"><h3>contractor-desk</h3><span class="proj-badge">RAG</span></div>
+              <p>Retrieval-augmented front-desk assistant for a residential HVAC contractor. Chunking, TF-IDF vectors, cosine similarity, top-k retrieval, score thresholds and grounded generation, all written from scratch rather than imported. Hit the classic <strong>lexical gap</strong> in testing ("crypto" missed "cryptocurrency"), fixed it with a synonym map, documented the trade-off, and turned both failures into regression tests. <strong>23 tests passing.</strong></p>
+              <div class="tech-stack"><span>Next.js</span><span>TypeScript</span><span>Tailwind</span><span>Vitest</span><span>RAG</span><span>Anthropic API</span></div>
+              <div class="proj-links"><a href="https://github.com/Camaelo26/contractor-desk" target="_blank">GitHub ↗</a></div>
+            </article>
+            <article class="project-card featured reveal reveal-d1">
+              <div class="proj-meta"><h3>customer-insights-r</h3><span class="proj-badge">Statistics</span></div>
+              <p>Customer survey analysis in base R with no packages: cleaning deliberately dirty data, testing missingness for bias before dropping rows, Welch t-tests, ANOVA, linear regression, Shapiro-Wilk and hand-computed VIF. The data is simulated with <strong>known ground truth</strong>, including a planted decoy variable with zero real effect. The model recovered all three real effects within 95% CI and <strong>correctly rejected the decoy</strong>.</p>
+              <div class="tech-stack"><span>R</span><span>Hypothesis Testing</span><span>ANOVA</span><span>Linear Regression</span><span>VIF</span></div>
+              <div class="proj-links"><a href="https://github.com/Camaelo26/customer-insights-r" target="_blank">GitHub ↗</a></div>
+            </article>
+          </div>
+
+          <div class="featured-row">
+            <article class="project-card featured reveal">
               <div class="proj-meta"><h3>LLM Knowledge Distillation Pipeline</h3><span class="proj-badge">ML / AI</span></div>
-              <p>End-to-end knowledge distillation system that uses Claude Haiku as a teacher model to label support tickets, then trains a DistilBERT student — achieving <strong>28× faster inference</strong> at near-zero serving cost. Includes a Streamlit evaluation dashboard for monitoring classifier accuracy.</p>
+              <p>End-to-end knowledge distillation system that uses Claude Haiku as a teacher model to label support tickets, then trains a DistilBERT student — achieving <strong>~65× faster inference</strong> at near-zero serving cost. Includes a Streamlit evaluation dashboard for monitoring classifier accuracy.</p>
               <div class="tech-stack"><span>Python</span><span>PyTorch</span><span>Hugging Face</span><span>LLM APIs</span><span>Streamlit</span></div>
               <div class="proj-links"><a href="https://github.com/Camaelo26/distilled-support-classifier" target="_blank">GitHub ↗</a></div>
             </article>
